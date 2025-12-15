@@ -9,5 +9,8 @@ wheels/
 # Python-generate files
 .idea/
 
+# Logging files
+game_state.jsonl
+
 # Virtual environments
 .venv
