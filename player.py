@@ -4,7 +4,7 @@ Define Player class inheriting form CircleShape class
 
 import pygame
 from circleshape import CircleShape
-from constants import PLAYER_RADIUS, LINE_WIDTH, PLAYER_TURN_SPEED
+from constants import LINE_WIDTH, PLAYER_RADIUS, PLAYER_SPEED, PLAYER_TURN_SPEED
 
 
 class Player(CircleShape):
@@ -46,6 +46,16 @@ class Player(CircleShape):
         """
         self.rotation += PLAYER_TURN_SPEED * dt
 
+    def move(self, dt):
+        """
+        Move the player forward or backward
+        :param dt: delta time (amount of time since last frame drawn)
+        :return: None
+        """
+        player_direction_vector = pygame.Vector2(0, 1).rotate(self.rotation)
+        player_velocity = player_direction_vector * PLAYER_SPEED * dt
+        self.position += player_velocity
+
     def update(self, dt):
         """
         Update player position when key pressed, starter code from Boot.dev
@@ -58,3 +68,7 @@ class Player(CircleShape):
             self.rotate(-1 * dt)
         if keys[pygame.K_d]:
             self.rotate(dt)
+        if keys[pygame.K_w]:
+            self.move(dt)
+        if keys[pygame.K_s]:
+            self.move(-1 * dt)
