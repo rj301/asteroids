@@ -1,9 +1,18 @@
+"""
+Guided project froom Boot.dev to create a simple asteroids game and practice OOP
+"""
+
 import pygame
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 from player import Player
 
+
 def main():
+    """
+    Initiate the game and run game loop
+    :return: None
+    """
     print(f"Starting Asteroids with pygame version: {pygame.version.ver}")
     print(f"Screen width: {SCREEN_WIDTH}")
     print(f"Screen height: {SCREEN_HEIGHT}")

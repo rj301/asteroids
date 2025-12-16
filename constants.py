@@ -1,3 +1,7 @@
+"""
+Constants for use across the game's files
+"""
+
 # Game window constants
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720

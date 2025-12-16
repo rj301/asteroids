@@ -1,4 +1,9 @@
+"""
+Define the CircleShape class from Boot.dev starter code
+"""
+
 import pygame
+
 
 # Base class for game objects
 class CircleShape(pygame.sprite.Sprite):
