@@ -27,6 +27,13 @@ def main():
     # Get a new instance of a GUI window
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
 
+    # Create groups to manage game objects
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    # Add player object to both groups
+    Player.containers = (updatable, drawable)
+
     # Create player object in center of screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
@@ -39,9 +46,16 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        # Draw background
         screen.fill("black")
-        player.update(dt)
-        player.draw(screen)
+
+        # Update objects
+        updatable.update(dt)
+
+        # Draw objects
+        for thing in drawable:
+            thing.draw(screen)
+
         pygame.display.flip()
 
         # Pause game loop for 1/60th of a second
