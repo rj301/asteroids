@@ -64,7 +64,15 @@ def main():
         # Update objects
         updatable.update(dt)
 
-        # Check for collisions
+        # Check for asteroid/shot collisions
+        for asteroid in asteroids:
+            for shot in shots:
+                if asteroid.collides_with(shot):
+                    log_event("asteroid_shot")
+                    asteroid.kill()
+                    shot.kill()
+
+        # Check for asteroid/player collisions
         for asteroid in asteroids:
             if asteroid.collides_with(player):
                 log_event("player_hit")
