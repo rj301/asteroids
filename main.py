@@ -3,6 +3,9 @@ Guided project froom Boot.dev to create a simple asteroids game and practice OOP
 """
 
 import pygame
+
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 from constants import SCREEN_WIDTH, SCREEN_HEIGHT
 from logger import log_state
 from player import Player
@@ -30,12 +33,18 @@ def main():
     # Create groups to manage game objects
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
-    # Add player object to both groups
+    # Add player and NPC objects to both groups
     Player.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
+    AsteroidField.containers = updatable
 
     # Create player object in center of screen
     player = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    # Create asteroid field object
+    asteroid_field = AsteroidField()
 
     # Game loop
     while True:

@@ -2,6 +2,12 @@
 Constants for use across the game's files
 """
 
+# Asteroid constants
+ASTEROID_MIN_RADIUS = 20
+ASTEROID_KINDS = 3
+ASTEROID_SPAWN_RATE_SECONDS = 0.8
+ASTEROID_MAX_RADIUS = ASTEROID_MIN_RADIUS * ASTEROID_KINDS
+
 # Game window constants
 SCREEN_WIDTH = 1280
 SCREEN_HEIGHT = 720
