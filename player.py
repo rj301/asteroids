@@ -4,7 +4,8 @@ Define Player class inheriting form CircleShape class
 
 import pygame
 from circleshape import CircleShape
-from constants import LINE_WIDTH, PLAYER_RADIUS, PLAYER_SHOOT_SPEED, PLAYER_SPEED, PLAYER_TURN_SPEED, SHOT_RADIUS
+from constants import LINE_WIDTH, PLAYER_RADIUS, PLAYER_SHOOT_SPEED, PLAYER_SPEED, PLAYER_TURN_SPEED, SHOT_RADIUS, \
+    PLAYER_SHOOT_COOLDOWN_SECONDS
 from shot import Shot
 
 
@@ -12,6 +13,7 @@ class Player(CircleShape):
     def __init__(self, x, y):
         super().__init__(x, y, PLAYER_RADIUS)
         self.rotation = 0
+        self.shot_cooldown = 0
 
     # in the Player class
     def triangle(self):
@@ -60,6 +62,7 @@ class Player(CircleShape):
     def update(self, dt):
         """
         Update player position when key pressed, starter code from Boot.dev
+        Reduce cooldown on player shot timer
         :param dt: delta time (amount of time since last frame drawn)
         :return: None
         """
@@ -76,12 +79,21 @@ class Player(CircleShape):
         if keys[pygame.K_SPACE]:
             self.shoot()
 
+        # Only decrement cooldown if not already <= 0 to prevent cooldown
+        # overflow or bugs if player doesn't shoot for a very long time
+        # If game loop requires player to shoot fast enough to prevent this
+        # or die, then the check can be removed
+        if self.shot_cooldown > 0:
+            self.shot_cooldown -= dt
+
     def shoot(self):
         """
         Fire a shot from the player
         :return: None
         """
-        shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
-        velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
-        shot.velocity = velocity
+        if self.shot_cooldown <= 0:
+            shot = Shot(self.position.x, self.position.y, SHOT_RADIUS)
+            velocity = pygame.Vector2(0, 1).rotate(self.rotation) * PLAYER_SHOOT_SPEED
+            shot.velocity = velocity
+            self.shot_cooldown = PLAYER_SHOOT_COOLDOWN_SECONDS
 
