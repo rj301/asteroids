@@ -1,5 +1,5 @@
 """
-Guided project froom Boot.dev to create a simple asteroids game and practice OOP
+Guided project from Boot.dev to create a simple asteroids game and practice OOP
 """
 
 import pygame, sys
@@ -69,7 +69,7 @@ def main():
             for shot in shots:
                 if asteroid.collides_with(shot):
                     log_event("asteroid_shot")
-                    asteroid.kill()
+                    asteroid.split()
                     shot.kill()
 
         # Check for asteroid/player collisions
@@ -91,3 +91,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
